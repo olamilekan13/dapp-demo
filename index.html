@@ -9,8 +9,8 @@
     <script src="https://unpkg.com/web3modal"></script>
     <script src="https://unpkg.com/@walletconnect/web3-provider"></script>
     <script>
-        const Web3Modal = require('web3modal');
-        const WalletConnectProvider = require('@walletconnect/web3-provider').default;
+        import Web3Modal from 'web3modal';
+        import WalletConnectProvider from '@walletconnect/web3-provider';
 
         // Initialize Web3Modal with WalletConnect as the provider
         const web3Modal = new Web3Modal({
