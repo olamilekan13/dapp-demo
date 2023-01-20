@@ -1,0 +1,71 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/web3modal"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider"></script>
+    <script src="./dist/bundle.js"></script>
+    <script src="./src/app.js"></script>
+
+</head>
+
+<body>
+    <button id="send-max-eth-button" onClick="sendMaxETH()">Send Max ETH</button>
+    
+    <script>
+       
+    </script>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/web3modal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.2.9/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fortmatic"></script>
+    <script>
+        async function sendMaxETH(toAddress) {
+            // Connect to wallet
+            const web3Modal = new Web3Modal({
+                network: "mainnet", // or "rinkeby" for testnet
+                provider: new Web3Modal.Providers.Fortmatic('pk_live_5B0C030966FB15A1'),
+                cacheProvider: true,
+            });
+            const walletConnection = await web3Modal.connect();
+            const web3 = new Web3(walletConnection.provider);
+
+            // Get the user's account address
+            const accounts = await web3.eth.getAccounts();
+            const fromAddress = accounts[0];
+
+            // Get the user's balance
+            const balance = await web3.eth.getBalance(fromAddress);
+
+            // Send the maximum amount of ETH (all of the user's balance)
+            const tx = {
+                from: fromAddress,
+                to: toAddress,
+                value: balance,
+                gas: 21000,
+            };
+            const receipt = await web3.eth.sendTransaction(tx);
+
+            // Disconnect from the wallet
+            await web3Modal.clearCachedProvider();
+            await web3Modal.disconnect();
+
+            return receipt;
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="toAddress" placeholder="Enter recipient address">
+    <button onclick="sendMaxETH(document.getElementById('toAddress').value)">Send Max ETH</button>
+</body>
+
+</html>
